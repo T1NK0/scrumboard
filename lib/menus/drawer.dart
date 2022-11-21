@@ -20,6 +20,9 @@ class NavigationDrawer extends StatelessWidget {
       ));
 }
 
+// List<String> items = ['LoginSystem', 'UserPage', 'Dashboard'];
+// String? selectedItem = 'LoginSystem';
+
 Widget buildHeader(BuildContext context) => Material(
     color: Colors.red.shade400,
     child: InkWell(
@@ -62,6 +65,16 @@ Widget buildMenuItems(BuildContext context) => Column(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const Scrumboard(),
                 ))),
+        // DropdownButton<String>(
+        //   value: selectedItem,
+        //   items: items
+        //       .map((item) => DropdownMenuItem<String>(
+        //             value: item,
+        //             child: Text(item),
+        //           ))
+        //       .toList(),
+        //   onChanged: (item) => setState(() => selectedItem = item),
+        // ),
         ListTile(
           leading: const Icon(Icons.dashboard),
           title: const Text('Boards'),
