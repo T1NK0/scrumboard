@@ -9,9 +9,14 @@ class SwimLaneHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      color: Colors.green[400],
+      color: Colors.blueGrey[900],
       child: Center(
-        child: Text(title),
+        child: Text(title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            )),
       ),
     );
   }
