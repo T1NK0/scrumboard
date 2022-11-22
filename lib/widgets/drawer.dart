@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/main.dart';
 
-import 'package:scrumboard/pages/boards.dart';
 import 'package:scrumboard/pages/login.dart';
 import 'package:scrumboard/pages/user.dart';
-import 'package:scrumboard/widgets/textfield_general.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Drawer(
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            buildHeader(context),
-            buildMenuItems(context),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              buildHeader(context),
+              buildMenuItems(context),
+            ],
+          ),
         ),
-      ));
-}
+      );
 
-// List<String> items = ['LoginSystem', 'UserPage', 'Dashboard'];
-// String? selectedItem = 'LoginSystem';
+  Widget buildHeader(BuildContext context) => Material(
+        color: Colors.red.shade400,
+        child: InkWell(
+          onTap: () {
+            Navigator.pop(context);
 
-Widget buildHeader(BuildContext context) => Material(
-    color: Colors.red.shade400,
-    child: InkWell(
-        onTap: () {
-          Navigator.pop(context);
-
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const User(),
-          ));
-        },
-        child: Container(
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const User(),
+            ));
+          },
+          child: Container(
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top + 20,
               bottom: MediaQuery.of(context).padding.bottom + 20,
@@ -57,36 +52,29 @@ Widget buildHeader(BuildContext context) => Material(
                   style: TextStyle(fontSize: 15, color: Colors.white),
                 ),
               ],
-            ))));
-
-Widget buildMenuItems(BuildContext context) => Column(
-      children: [
-        ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Hjem'),
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const Scrumboard(),
-                ))),
-        ListTile(
-          leading: const Icon(Icons.dashboard),
-          title: const Text('Boards'),
-          onTap: () {
-            Navigator.pop(context);
-
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const Boards(),
-            ));
-          },
+            ),
+          ),
         ),
-        ListTile(
-            leading: const Icon(Icons.login),
-            title: const Text('Login'),
-            onTap: () {
-              Navigator.pop(context);
+      );
 
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Login(),
-              ));
-            }),
-      ],
-    );
+  Widget buildMenuItems(BuildContext context) => Column(
+        children: [
+          ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Hjem'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const Scrumboard(),
+                  ))),
+          ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
+              onTap: () {
+                Navigator.pop(context);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Login(),
+                ));
+              }),
+        ],
+      );
+}

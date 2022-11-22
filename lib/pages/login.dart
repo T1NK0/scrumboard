@@ -7,10 +7,10 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.red[400],
           title: const Text('Login'),
         ),
-        body: Center(
+        body: const Center(
           child: TextFieldWidget(),
         ),
       );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widgets/drawer.dart';
+import 'widgets/widgets.dart';
 
 void main() {
   runApp(const Scrumboard());
@@ -11,15 +11,33 @@ class Scrumboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        //Allows us to add UI elements to the screen.
-        home: Scaffold(
-      //A navigation bar (appbar)
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text('Scrumboard'),
-      ),
+      //Allows us to add UI elements to the screen.
+      home: Scaffold(
+        //A navigation bar (appbar)
+        appBar: AppBar(
+          backgroundColor: Colors.red[400],
+          title: const Text('Scrumboard'),
+        ),
 
-      drawer: const NavigationDrawer(),
-    ));
+        drawer: const NavigationDrawer(),
+
+        body: ListView(
+          scrollDirection: Axis.horizontal,
+          children: const <Widget>[
+            SwimlaneWidget(),
+            SwimlaneWidget(),
+            SwimlaneWidget(),
+            SwimlaneWidget(),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red[400],
+          onPressed: () {
+            debugPrint('Test');
+          },
+          child: const Icon(Icons.add),
+        ),
+      ),
+    );
   }
 }
