@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../menus/drawer.dart';
 
 class Boards extends StatelessWidget {
   const Boards({super.key});
