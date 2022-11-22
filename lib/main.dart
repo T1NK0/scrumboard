@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/widgets.dart';
+import 'package:scrumboard/pages/scrumboard.dart';
 
 void main() {
   runApp(const Scrumboard());
@@ -21,16 +22,8 @@ class Scrumboard extends StatelessWidget {
 
         drawer: const NavigationDrawer(),
 
-        body: ListView(
-          scrollDirection: Axis.horizontal,
-          children: const <Widget>[
-            SwimlaneWidget(),
-            SwimlaneWidget(),
-            SwimlaneWidget(),
-            SwimlaneWidget(),
-          ],
-        ),
-        floatingActionButton: FloatActionButtonWidget(),
+        body: const ScrumboardPage(),
+        floatingActionButton: const FloatActionButtonWidget(),
       ),
     );
   }
