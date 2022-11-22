@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scrumboard/widgets/swim_lane_header.dart';
 import '../model/card_model.dart';
 
 class ScrumboardPage extends StatefulWidget {
@@ -43,6 +44,62 @@ class _ScrumboardPageState extends State<ScrumboardPage> {
         "priority": 1,
         "status": 0,
         "user": "Tinko"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
+      },
+      {
+        "title": "Test2",
+        "description": "This is a test for test 2",
+        "priority": 2,
+        "status": 1,
+        "user": "Steffen"
       },
       {
         "title": "Test2",
@@ -101,37 +158,105 @@ class _ScrumboardPageState extends State<ScrumboardPage> {
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Container(
-            color: Colors.grey,
-            width: 400,
-            margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
+            margin: const EdgeInsets.only(left: 5, right: 5),
             padding: const EdgeInsets.only(top: 15),
-            child: buildCard(todoCards),
+            width: 350,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const SwimLaneHeaderWidget(
+                  title: 'To Do',
+                ),
+                Expanded(
+                  child: Container(
+                    constraints: const BoxConstraints.expand(),
+                    width: 350,
+                    color: Colors.grey[200],
+                    child: Container(
+                      child: buildCards(todoCards),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
-            color: Colors.grey,
-            width: 400,
-            margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
+            margin: const EdgeInsets.only(left: 5, right: 5),
             padding: const EdgeInsets.only(top: 15),
-            child: buildCard(inProgressCards),
+            width: 350,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const SwimLaneHeaderWidget(
+                  title: 'In Development',
+                ),
+                Expanded(
+                  child: Container(
+                    constraints: const BoxConstraints.expand(),
+                    width: 350,
+                    color: Colors.grey[200],
+                    child: Container(
+                      child: buildCards(inProgressCards),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
-            color: Colors.grey,
-            width: 400,
-            margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
+            margin: const EdgeInsets.only(left: 5, right: 5),
             padding: const EdgeInsets.only(top: 15),
-            child: buildCard(testingCards),
+            width: 350,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const SwimLaneHeaderWidget(
+                  title: 'Testing',
+                ),
+                Expanded(
+                  child: Container(
+                    constraints: const BoxConstraints.expand(),
+                    width: 350,
+                    color: Colors.grey[200],
+                    child: Container(
+                      child: buildCards(testingCards),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
-            color: Colors.grey,
-            width: 400,
-            margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
+            margin: const EdgeInsets.only(left: 5, right: 5),
             padding: const EdgeInsets.only(top: 15),
-            child: buildCard(doneCards),
+            width: 350,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const SwimLaneHeaderWidget(
+                  title: 'Done',
+                ),
+                Expanded(
+                  child: Container(
+                    constraints: const BoxConstraints.expand(),
+                    width: 350,
+                    color: Colors.grey[200],
+                    child: Container(
+                      child: buildCards(doneCards),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       );
 
-  Widget buildCard(List<CardModel> cards) => ListView.builder(
+  Widget buildCards(List<CardModel> cards) => ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: cards.length,
