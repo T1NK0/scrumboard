@@ -30,13 +30,7 @@ class Scrumboard extends StatelessWidget {
             SwimlaneWidget(),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red[400],
-          onPressed: () {
-            debugPrint('Test');
-          },
-          child: const Icon(Icons.add),
-        ),
+        floatingActionButton: FloatActionButtonWidget(),
       ),
     );
   }
