@@ -3,16 +3,15 @@ import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
-
 import 'package:scrumboard/model/swimlane_model.dart';
 import 'package:scrumboard/model/card_model.dart';
+import 'package:scrumboard/widgets/widgets.dart';
 
 class ScrumboardPage extends StatelessWidget {
   List<CardModel> todoCards = getCards();
   List<CardModel> inProgressCards = getCards();
   List<CardModel> testingCards = getCards();
   List<CardModel> doneCards = getCards();
-  // List<CardModel> cards = getCards();
 
   static List<CardModel> getCards() {
     const data = [
@@ -91,10 +90,10 @@ class ScrumboardPage extends StatelessWidget {
   }
 
   List<Swimlane> _listData = [
-    Swimlane(title: "List title 1", items: getCards()),
-    Swimlane(title: "List title 2", items: getCards()),
-    Swimlane(title: "List title 3", items: getCards()),
-    Swimlane(title: "List title 4", items: getCards()),
+    Swimlane(title: "TO DO", items: getCards()),
+    Swimlane(title: "IN PROGRESS", items: getCards()),
+    Swimlane(title: "TESTING", items: getCards()),
+    Swimlane(title: "DONE", items: getCards()),
   ];
 
   //Can be used to animate to different sections of the BoardView
@@ -112,25 +111,23 @@ class ScrumboardPage extends StatelessWidget {
     );
   }
 
-  Widget buildBoardItem(CardModel itemObject) {
+  Widget buildBoardItem(CardModel currentCard) {
     return BoardItem(
-        onStartDragItem:
-            (int? listIndex, int? itemIndex, BoardItemState? state) {},
-        onDropItem: (int? listIndex, int? itemIndex, int? oldListIndex,
-            int? oldItemIndex, BoardItemState? state) {
-          //Used to update our local item data
-          var item = _listData[oldListIndex!].items![oldItemIndex!];
-          _listData[oldListIndex].items!.removeAt(oldItemIndex!);
-          _listData[listIndex!].items!.insert(itemIndex!, item);
-        },
-        onTapItem:
-            (int? listIndex, int? itemIndex, BoardItemState? state) async {},
-        item: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(itemObject.title!),
-          ),
-        ));
+      onStartDragItem:
+          (int? listIndex, int? itemIndex, BoardItemState? state) {},
+      onDropItem: (int? listIndex, int? itemIndex, int? oldListIndex,
+          int? oldItemIndex, BoardItemState? state) {
+        //Used to update our local item data
+        var item = _listData[oldListIndex!].items![oldItemIndex!];
+        _listData[oldListIndex].items!.removeAt(oldItemIndex!);
+        _listData[listIndex!].items!.insert(itemIndex!, item);
+      },
+      onTapItem:
+          (int? listIndex, int? itemIndex, BoardItemState? state) async {},
+      item: Center(
+        child: CardWidget(key: key, card: currentCard),
+      ),
+    );
   }
 
   Widget _createBoardList(Swimlane list) {
@@ -148,8 +145,8 @@ class ScrumboardPage extends StatelessWidget {
         _listData.removeAt(oldListIndex!);
         _listData.insert(listIndex!, list);
       },
-      headerBackgroundColor: Color.fromARGB(255, 235, 236, 240),
-      backgroundColor: Color.fromARGB(255, 235, 236, 240),
+      headerBackgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[200],
       header: [
         Expanded(
             child: Padding(
