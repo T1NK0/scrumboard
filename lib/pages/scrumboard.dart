@@ -89,7 +89,7 @@ class ScrumboardPage extends StatelessWidget {
     return data.map<CardModel>(CardModel.fromJson).toList();
   }
 
-  List<Swimlane> _listData = [
+  final List<Swimlane> _listData = [
     Swimlane(title: "TO DO", items: getCards()),
     Swimlane(title: "IN PROGRESS", items: getCards()),
     Swimlane(title: "TESTING", items: getCards()),
@@ -97,7 +97,7 @@ class ScrumboardPage extends StatelessWidget {
   ];
 
   //Can be used to animate to different sections of the BoardView
-  BoardViewController boardViewController = new BoardViewController();
+  BoardViewController boardViewController = BoardViewController();
 
   @override
   Widget build(BuildContext context) {
@@ -149,12 +149,14 @@ class ScrumboardPage extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       header: [
         Expanded(
-            child: Padding(
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  list.title!,
-                  style: TextStyle(fontSize: 20),
-                ))),
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(
+              list.title!,
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
       ],
       items: items,
     );

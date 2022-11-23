@@ -21,13 +21,13 @@ class NavigationDrawer extends StatelessWidget {
       );
 
   Widget buildHeader(BuildContext context) => Material(
-        color: Colors.red.shade400,
+        // color: Colors.red.shade400,
         child: InkWell(
           onTap: () {
             Navigator.pop(context);
 
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const User(),
+              builder: (context) => const UserPage(),
             ));
           },
           child: Container(
@@ -72,7 +72,7 @@ class NavigationDrawer extends StatelessWidget {
                 Navigator.pop(context);
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const Login(),
+                  builder: (context) => const LoginPage(),
                 ));
               }),
         ],

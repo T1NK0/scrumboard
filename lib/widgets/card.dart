@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/model/card_model.dart';
+import 'package:scrumboard/pages/task.dart';
+
+import '../mixin/mixin.dart';
 
 class CardWidget extends StatefulWidget {
   final CardModel card;
@@ -9,12 +12,18 @@ class CardWidget extends StatefulWidget {
   State<CardWidget> createState() => _CardWidgetState();
 }
 
-class _CardWidgetState extends State<CardWidget> {
+class _CardWidgetState extends State<CardWidget> with NewCardDialog {
   @override
   Widget build(BuildContext context) => Card(
         child: InkWell(
           splashColor: Colors.teal,
           onTap: () {
+            dialogBuilder(context, widget.card);
+            // Navigator.pop(context);
+
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => const TaskPage(),
+            // ));
             debugPrint('Card tapped.');
           },
           child: SizedBox(
@@ -24,9 +33,9 @@ class _CardWidgetState extends State<CardWidget> {
                 ListTile(
                   // ignore: prefer_const_constructors
                   leading: Icon(
-                    Icons.filter_frames,
+                    Icons.task,
                     color: Colors.teal,
-                    // size: 50,
+                    // size: 50,dialogBuilder(context);
                   ),
                   title: Text(widget.card.title),
                   subtitle: Text(widget.card.title),
