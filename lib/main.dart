@@ -22,7 +22,7 @@ class Scrumboard extends StatelessWidget {
 
         drawer: const NavigationDrawer(),
 
-        body: const ScrumboardPage(),
+        body: ScrumboardPage(),
         floatingActionButton: const FloatActionButtonWidget(),
       ),
     );

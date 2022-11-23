@@ -12,7 +12,7 @@ class SwimLaneHeaderWidget extends StatelessWidget {
       color: Colors.blueGrey[900],
       child: Center(
         child: Text(title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 24,
