@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_priority_model.dart';
+import '../services/firebase_db_service.dart';
 
 class TaskDialogWidget extends StatefulWidget {
   final CardModel? card;
@@ -10,27 +11,23 @@ class TaskDialogWidget extends StatefulWidget {
   State<TaskDialogWidget> createState() => _TaskDialogWidgetState();
 }
 
-// var status = <String, String>{
-//   'todo': 'To do',
-//   'inprogress': 'In progress',
-//   'testing': 'Testing',
-//   'done': 'Done',
-// };
-
-// const List<String> priority = <String>['One', 'Two', 'Three', 'Four'];
-
 class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
   late TextEditingController userController;
+  FirebaseDbService dbSet = FirebaseDbService();
 
-  // String statusDropdownValue = status.first;
-  // String priorityDropdownValue = priority.first;
+  late final TaskPriority selectedPriority;
+  List<TaskPriority> priorities = <TaskPriority>[
+    const TaskPriority(1, 'Low'),
+    const TaskPriority(2, 'Medium'),
+    const TaskPriority(3, 'High')
+  ];
 
   @override
   void initState() {
     super.initState();
-
+    selectedPriority = priorities[0];
     titleController = TextEditingController();
     descriptionController = TextEditingController();
     userController = TextEditingController();
@@ -102,52 +99,23 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
               ),
-              // SizedBox(height: 15),
-              // DropdownButton<String>(
-              //   value: priorityDropdownValue,
-              //   icon: const Icon(Icons.arrow_downward),
-              //   elevation: 16,
-              //   style: const TextStyle(color: Colors.teal),
-              //   underline: Container(
-              //     height: 2,
-              //     color: Colors.teal,
-              //   ),
-              //   onChanged: (String? value) {
-              //     // This is called when the user selects an item.
-              //     setState(() {
-              //       priorityDropdownValue = value!;
-              //     });
-              //   },
-              //   items: priority.map<DropdownMenuItem<String>>((String value) {
-              //     return DropdownMenuItem<String>(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
-              // SizedBox(height: 15),
-              // DropdownButton<String>(
-              //   value: statusDropdownValue,
-              //   icon: const Icon(Icons.arrow_downward),
-              //   elevation: 16,
-              //   style: const TextStyle(color: Colors.teal),
-              //   underline: Container(
-              //     height: 2,
-              //     color: Colors.teal,
-              //   ),
-              //   onChanged: (String? value) {
-              //     // This is called when the user selects an item.
-              //     setState(() {
-              //       statusDropdownValue = value!;
-              //     });
-              //   },
-              //   items: status.map<DropdownMenuItem<T>>((String value) {
-              //     return DropdownMenuItem<String>(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
+              DropdownButton<TaskPriority>(
+                value: selectedPriority,
+                onChanged: (TaskPriority? newValue) {
+                  setState(() {
+                    selectedPriority = newValue!;
+                  });
+                },
+                items: priorities.map((TaskPriority taskPriority) {
+                  return new DropdownMenuItem<TaskPriority>(
+                    value: taskPriority,
+                    child: new Text(
+                      taskPriority.name,
+                      style: new TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+              ),
             ],
           ),
         ),
@@ -156,7 +124,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
-            child: const Text('Disable'),
+            child: const Text('Cancel'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -165,9 +133,10 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
-            child: const Text('Enable'),
+            child: const Text('Create'),
             onPressed: () {
               Navigator.of(context).pop();
+              dbSet.Set(widget.card!);
             },
           ),
         ],

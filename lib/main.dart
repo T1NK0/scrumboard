@@ -44,7 +44,6 @@ class _ScrumboardState extends State<Scrumboard> with NewCardDialog {
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   dialogBuilder(context, null);
-                  dbSet.Set();
                 }),
           ],
         ),
