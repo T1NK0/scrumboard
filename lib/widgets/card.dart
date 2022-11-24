@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/model/card_model.dart';
-import 'package:scrumboard/pages/task.dart';
 
 import '../mixin/mixin.dart';
 

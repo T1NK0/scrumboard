@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "114705556766",
+    "project_id": "scrumboard-f0a9d",
+    "storage_bucket": "scrumboard-f0a9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114705556766:android:e6f40aa471608969f3150f",
+        "android_client_info": {
+          "package_name": "com.example.scrumboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114705556766-e5cr99o644g377k8cq3et21vut42gm5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_fZGLw17tFSKW8G9CqFMEdFmQ0u9t_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114705556766-e5cr99o644g377k8cq3et21vut42gm5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
