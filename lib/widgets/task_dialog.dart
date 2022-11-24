@@ -11,6 +11,8 @@ class TaskDialogWidget extends StatefulWidget {
   State<TaskDialogWidget> createState() => _TaskDialogWidgetState();
 }
 
+final _formKey = GlobalKey<FormState>();
+
 class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
@@ -50,73 +52,76 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
           textAlign: TextAlign.center,
         ),
         content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  hintText: 'Title Of task',
-                  labelText: 'Title',
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () => titleController.clear(),
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
-              ),
-              SizedBox(height: 15),
-              TextField(
-                controller: descriptionController,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: 'description Of task',
-                  labelText: 'Description',
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => descriptionController.clear(),
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
-              ),
-              SizedBox(height: 15),
-              TextField(
-                controller: userController,
-                decoration: InputDecoration(
-                  hintText: 'User ontask',
-                  labelText: 'User',
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () => userController.clear(),
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
-              ),
-              DropdownButton<TaskPriority>(
-                value: selectedPriority,
-                onChanged: (TaskPriority? newValue) {
-                  setState(() {
-                    selectedPriority = newValue!;
-                  });
-                },
-                items: priorities.map((TaskPriority taskPriority) {
-                  return new DropdownMenuItem<TaskPriority>(
-                    value: taskPriority,
-                    child: new Text(
-                      taskPriority.name,
-                      style: new TextStyle(color: Colors.black),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    hintText: 'Title Of task',
+                    labelText: 'Title',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () => titleController.clear(),
                     ),
-                  );
-                }).toList(),
-              ),
-            ],
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                ),
+                SizedBox(height: 15),
+                TextField(
+                  controller: descriptionController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    hintText: 'description Of task',
+                    labelText: 'Description',
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => descriptionController.clear(),
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                ),
+                SizedBox(height: 15),
+                TextField(
+                  controller: userController,
+                  decoration: InputDecoration(
+                    hintText: 'User ontask',
+                    labelText: 'User',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () => userController.clear(),
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                ),
+                DropdownButton<TaskPriority>(
+                  value: selectedPriority,
+                  onChanged: (TaskPriority? newValue) {
+                    setState(() {
+                      selectedPriority = newValue!;
+                    });
+                  },
+                  items: priorities.map((TaskPriority taskPriority) {
+                    return new DropdownMenuItem<TaskPriority>(
+                      value: taskPriority,
+                      child: new Text(
+                        taskPriority.name,
+                        style: new TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
           ),
         ),
         actions: <Widget>[
@@ -136,7 +141,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             child: const Text('Create'),
             onPressed: () {
               Navigator.of(context).pop();
-              dbSet.Set(widget.card!);
+              // dbSet.Set(widget.card!);
             },
           ),
         ],

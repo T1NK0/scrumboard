@@ -12,6 +12,7 @@ class ScrumboardPage extends StatelessWidget {
   List<CardModel> inProgressCards = getCards();
   List<CardModel> testingCards = getCards();
   List<CardModel> doneCards = getCards();
+  List<CardModel> allCards = [];
 
   static List<CardModel> getCards() {
     const data = [
