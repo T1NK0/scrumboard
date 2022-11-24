@@ -1,8 +1,8 @@
 class CardModel {
   final String title;
   final String description;
-  final int priority;
-  final int status;
+  final String priority;
+  final String status;
   final String user;
 
   const CardModel({

@@ -9,7 +9,7 @@ mixin NewCardDialog {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return TaskDialogWidget(card: card!);
+        return TaskDialogWidget(card: card);
       },
     );
   }

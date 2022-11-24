@@ -10,15 +10,48 @@ class TaskDialogWidget extends StatefulWidget {
   State<TaskDialogWidget> createState() => _TaskDialogWidgetState();
 }
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+// var status = <String, String>{
+//   'todo': 'To do',
+//   'inprogress': 'In progress',
+//   'testing': 'Testing',
+//   'done': 'Done',
+// };
+
+// const List<String> priority = <String>['One', 'Two', 'Three', 'Four'];
 
 class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
-  String dropdownValue = list.first;
+  late TextEditingController userController;
+
+  // String statusDropdownValue = status.first;
+  // String priorityDropdownValue = priority.first;
+
+  @override
+  void initState() {
+    super.initState();
+
+    titleController = TextEditingController();
+    descriptionController = TextEditingController();
+    userController = TextEditingController();
+
+    if (widget.card != null) {
+      titleController.text = widget.card!.title;
+      descriptionController.text = widget.card!.description;
+      userController.text = widget.card!.user;
+    }
+  }
 
   @override
   Widget build(BuildContext context) => AlertDialog(
+        title: Text(
+          'Edet Task',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -55,51 +88,66 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                 textInputAction: TextInputAction.done,
               ),
               SizedBox(height: 15),
-              DropdownButton<String>(
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
+              TextField(
+                controller: userController,
+                decoration: InputDecoration(
+                  hintText: 'User ontask',
+                  labelText: 'User',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () => userController.clear(),
+                  ),
+                  border: OutlineInputBorder(),
                 ),
-                onChanged: (String? value) {
-                  // This is called when the user selects an item.
-                  setState(() {
-                    dropdownValue = value!;
-                  });
-                },
-                items: list.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
               ),
-              SizedBox(height: 15),
-              DropdownButton<String>(
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (String? value) {
-                  // This is called when the user selects an item.
-                  setState(() {
-                    dropdownValue = value!;
-                  });
-                },
-                items: list.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
+              // SizedBox(height: 15),
+              // DropdownButton<String>(
+              //   value: priorityDropdownValue,
+              //   icon: const Icon(Icons.arrow_downward),
+              //   elevation: 16,
+              //   style: const TextStyle(color: Colors.teal),
+              //   underline: Container(
+              //     height: 2,
+              //     color: Colors.teal,
+              //   ),
+              //   onChanged: (String? value) {
+              //     // This is called when the user selects an item.
+              //     setState(() {
+              //       priorityDropdownValue = value!;
+              //     });
+              //   },
+              //   items: priority.map<DropdownMenuItem<String>>((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: Text(value),
+              //     );
+              //   }).toList(),
+              // ),
+              // SizedBox(height: 15),
+              // DropdownButton<String>(
+              //   value: statusDropdownValue,
+              //   icon: const Icon(Icons.arrow_downward),
+              //   elevation: 16,
+              //   style: const TextStyle(color: Colors.teal),
+              //   underline: Container(
+              //     height: 2,
+              //     color: Colors.teal,
+              //   ),
+              //   onChanged: (String? value) {
+              //     // This is called when the user selects an item.
+              //     setState(() {
+              //       statusDropdownValue = value!;
+              //     });
+              //   },
+              //   items: status.map<DropdownMenuItem<T>>((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: Text(value),
+              //     );
+              //   }).toList(),
+              // ),
             ],
           ),
         ),
@@ -124,17 +172,4 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
           ),
         ],
       );
-
-  @override
-  void initState() {
-    super.initState();
-
-    titleController = TextEditingController();
-    descriptionController = TextEditingController();
-
-    if (widget.card != null) {
-      titleController.text = widget.card!.title;
-      descriptionController.text = widget.card!.description;
-    }
-  }
 }

@@ -16,74 +16,32 @@ class ScrumboardPage extends StatelessWidget {
   static List<CardModel> getCards() {
     const data = [
       {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 1,
-        "status": 0,
+        "title": "Test1",
+        "description": "This is a test for test 1",
+        "priority": 'low',
+        "status": 'todo',
         "user": "Tinko"
       },
       {
         "title": "Test2",
         "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
+        "priority": 'Medium',
+        "status": 'inprogress',
         "user": "Steffen"
       },
       {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
+        "title": "Test3",
+        "description": "This is a test for test 3",
+        "priority": 'high',
+        "status": 'testing',
         "user": "Steffen"
       },
       {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 2,
-        "status": 1,
-        "user": "Steffen"
+        "title": "Test4",
+        "description": "This is a test for test 4",
+        "priority": 'high',
+        "status": 'done',
+        "user": "Tinko"
       },
     ];
     return data.map<CardModel>(CardModel.fromJson).toList();

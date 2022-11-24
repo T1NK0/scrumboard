@@ -43,9 +43,14 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text('Priority: ${widget.card.priority}'),
+                    Text(
+                      widget.card.user,
+                      style: TextStyle(),
+                    ),
                     const SizedBox(width: 8),
-                    Text('Status: ${widget.card.status}'),
+                    Text(widget.card.priority),
+                    const SizedBox(width: 8),
+                    Text(widget.card.status),
                     const SizedBox(width: 8),
                   ],
                 ),
