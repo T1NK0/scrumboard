@@ -51,6 +51,8 @@ class DefaultFirebaseOptions {
     authDomain: 'scrumboard-f0a9d.firebaseapp.com',
     storageBucket: 'scrumboard-f0a9d.appspot.com',
     measurementId: 'G-WWJNZW0WGF',
+    databaseURL:
+        'https://scrumboard-f0a9d-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -59,6 +61,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '114705556766',
     projectId: 'scrumboard-f0a9d',
     storageBucket: 'scrumboard-f0a9d.appspot.com',
+    databaseURL:
+        'https://scrumboard-f0a9d-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -70,6 +74,8 @@ class DefaultFirebaseOptions {
     iosClientId:
         '114705556766-p97sk6urqnsqvvgf6h0kfrdmvdvt56dl.apps.googleusercontent.com',
     iosBundleId: 'com.example.scrumboard',
+    databaseURL:
+        'https://scrumboard-f0a9d-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -81,5 +87,7 @@ class DefaultFirebaseOptions {
     iosClientId:
         '114705556766-p97sk6urqnsqvvgf6h0kfrdmvdvt56dl.apps.googleusercontent.com',
     iosBundleId: 'com.example.scrumboard',
+    databaseURL:
+        'https://scrumboard-f0a9d-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 }

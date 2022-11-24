@@ -3,8 +3,8 @@ import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
-import 'package:scrumboard/model/swimlane_model.dart';
-import 'package:scrumboard/model/card_model.dart';
+import 'package:scrumboard/models/swimlane_model.dart';
+import 'package:scrumboard/models/card_model.dart';
 import 'package:scrumboard/widgets/widgets.dart';
 
 class ScrumboardPage extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:scrumboard/model/card_model.dart';
+import 'package:scrumboard/models/card_model.dart';
 
 class Swimlane {
   String title;

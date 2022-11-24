@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:scrumboard/model/card_model.dart';
+import 'package:scrumboard/models/card_model.dart';
 
 class TaskDialogWidget extends StatefulWidget {
   final CardModel? card;
