@@ -140,6 +140,12 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             ),
             child: const Text('Create'),
             onPressed: () {
+              final title = titleController.text;
+              final description = titleController.text;
+              final user = titleController.text;
+              final priority = selectedPriority;
+              final type = "todo";
+
               Navigator.of(context).pop();
               // dbSet.Set(widget.card!);
             },
