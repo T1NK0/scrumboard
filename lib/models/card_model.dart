@@ -1,11 +1,11 @@
 class CardModel {
-  final String title;
-  final String description;
-  final String priority;
-  final String status;
-  final String user;
+  late String title;
+  late String description;
+  late String priority;
+  late String status;
+  late String user;
 
-  const CardModel({
+  CardModel({
     required this.title,
     required this.description,
     required this.priority,
@@ -13,11 +13,26 @@ class CardModel {
     required this.user,
   });
 
-  static CardModel fromJson(json) => CardModel(
-        title: json['title'],
-        description: json['description'],
-        priority: json['priority'],
-        status: json['status'],
-        user: json['user'],
-      );
+  CardModel.fromJson(Map<String, dynamic> json) {
+    title:
+    json['title'];
+    description:
+    json['description'];
+    priority:
+    json['priority'];
+    status:
+    json['status'];
+    user:
+    json['user'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['description'] = description;
+    data['priority'] = priority;
+    data['status'] = status;
+    data['user'] = user;
+    return data;
+  }
 }

@@ -33,7 +33,7 @@ class Scrumboard extends StatefulWidget {
 }
 
 class _ScrumboardState extends State<Scrumboard> with NewCardDialog {
-  FirebaseDbService dbSet = FirebaseDbService();
+  FirebaseDbService db = FirebaseDbService();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -44,7 +44,8 @@ class _ScrumboardState extends State<Scrumboard> with NewCardDialog {
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   dialogBuilder(context, null);
-                  dbSet.Set();
+                  // db.Set();
+                  // dbSet.getDbData();
                 }),
           ],
         ),

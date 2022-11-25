@@ -2,7 +2,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:scrumboard/models/card_model.dart';
 
 class FirebaseDbService {
-  DatabaseReference ref = FirebaseDatabase.instance.ref("");
+  DatabaseReference ref = FirebaseDatabase.instance.ref("tasks");
+
+  List tasks = [];
+
   // Future<void> Set(CardModel card) async {
   //   await ref.set([
   //     {
@@ -13,6 +16,7 @@ class FirebaseDbService {
   //       "user": card.user
   //     }
   //   ]);
+
   Future<void> Set() async {
     await ref.set({
       'tasks': [
@@ -46,5 +50,18 @@ class FirebaseDbService {
         }
       ]
     });
+  }
+
+  Future<List> getDbData() async {
+// Get the data once
+    DatabaseEvent event = await ref.once();
+
+    print('Event Type: ${event.type}'); // DatabaseEventType.value;
+    print('Snapshot: ${event.snapshot}'); // DataSnapshot
+    print('Event: ${event.snapshot.value}');
+
+    tasks.add(event.snapshot.value);
+
+    return tasks;
   }
 }

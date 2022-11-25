@@ -1,58 +1,30 @@
 import 'package:boardview/board_item.dart';
 import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview_controller.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
 import 'package:scrumboard/models/swimlane_model.dart';
 import 'package:scrumboard/models/card_model.dart';
 import 'package:scrumboard/widgets/widgets.dart';
 
-class ScrumboardPage extends StatelessWidget {
-  List<CardModel> todoCards = getCards();
-  List<CardModel> inProgressCards = getCards();
-  List<CardModel> testingCards = getCards();
-  List<CardModel> doneCards = getCards();
-  List<CardModel> allCards = [];
+import '../services/firebase_db_service.dart';
 
-  static List<CardModel> getCards() {
-    const data = [
-      {
-        "title": "Test1",
-        "description": "This is a test for test 1",
-        "priority": 'low',
-        "status": 'todo',
-        "user": "Tinko"
-      },
-      {
-        "title": "Test2",
-        "description": "This is a test for test 2",
-        "priority": 'Medium',
-        "status": 'inprogress',
-        "user": "Steffen"
-      },
-      {
-        "title": "Test3",
-        "description": "This is a test for test 3",
-        "priority": 'high',
-        "status": 'testing',
-        "user": "Steffen"
-      },
-      {
-        "title": "Test4",
-        "description": "This is a test for test 4",
-        "priority": 'high',
-        "status": 'done',
-        "user": "Tinko"
-      },
-    ];
-    return data.map<CardModel>(CardModel.fromJson).toList();
-  }
+FirebaseDbService db = FirebaseDbService();
+
+class ScrumboardPage extends StatelessWidget {
+  // List<CardModel> todoCards = getCards();
+  // List<CardModel> inProgressCards = getCards();
+  // List<CardModel> testingCards = getCards();
+  // List<CardModel> doneCards = getCards();
+
+  static List<CardModel> allCards = getCards();
 
   final List<Swimlane> _listData = [
-    Swimlane(title: "TO DO", items: getCards()),
-    Swimlane(title: "IN PROGRESS", items: getCards()),
-    Swimlane(title: "TESTING", items: getCards()),
-    Swimlane(title: "DONE", items: getCards()),
+    Swimlane(title: "TO DO", items: allCards),
+    Swimlane(title: "IN PROGRESS", items: allCards),
+    Swimlane(title: "TESTING", items: allCards),
+    Swimlane(title: "DONE", items: allCards),
   ];
 
   //Can be used to animate to different sections of the BoardView
@@ -120,4 +92,11 @@ class ScrumboardPage extends StatelessWidget {
       items: items,
     );
   }
+}
+
+List<CardModel> getCards() { 
+  var data = db.getDbData();
+
+  List<CardModel> tempData = CardModel.fromJson(List data);
+  return tempData;
 }
