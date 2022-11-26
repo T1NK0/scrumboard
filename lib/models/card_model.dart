@@ -14,25 +14,18 @@ class CardModel {
   });
 
   CardModel.fromJson(Map<String, dynamic> json) {
-    title:
-    json['title'];
-    description:
-    json['description'];
-    priority:
-    json['priority'];
-    status:
-    json['status'];
-    user:
-    json['user'];
+    title = json['title'];
+    description = json['description'];
+    priority = json['priority'];
+    status = json['status'];
+    user = json['user'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
-    data['description'] = description;
-    data['priority'] = priority;
-    data['status'] = status;
-    data['user'] = user;
-    return data;
-  }
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "title": title,
+        "description": description,
+        "priority": priority,
+        "status": status,
+        "user": user,
+      };
 }

@@ -4,42 +4,46 @@ import 'package:boardview/boardview_controller.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
+import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/swimlane_model.dart';
 import 'package:scrumboard/models/card_model.dart';
 import 'package:scrumboard/widgets/widgets.dart';
 
 import '../services/firebase_db_service.dart';
 
-FirebaseDbService db = FirebaseDbService();
-
 class ScrumboardPage extends StatelessWidget {
-  // List<CardModel> todoCards = getCards();
-  // List<CardModel> inProgressCards = getCards();
-  // List<CardModel> testingCards = getCards();
-  // List<CardModel> doneCards = getCards();
-
-  static List<CardModel> allCards = getCards();
-
-  final List<Swimlane> _listData = [
-    Swimlane(title: "TO DO", items: allCards),
-    Swimlane(title: "IN PROGRESS", items: allCards),
-    Swimlane(title: "TESTING", items: allCards),
-    Swimlane(title: "DONE", items: allCards),
-  ];
-
+  FirebaseDbService dbService = FirebaseDbService();
+  late List<Swimlane> _listData;
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
 
   @override
   Widget build(BuildContext context) {
-    List<BoardList> _lists = [];
-    for (int i = 0; i < _listData.length; i++) {
-      _lists.add(_createBoardList(_listData[i]) as BoardList);
-    }
-    return BoardView(
-      lists: _lists,
-      boardViewController: boardViewController,
+    return FutureBuilder(
+      future: getDataFromDatabase(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const CircularProgressIndicator();
+        }
+
+        cards = snapshot.data!;
+        var listData = splitTasks(cards);
+
+        List<BoardList> lists = [];
+        for (int i = 0; i < listData.length; i++) {
+          lists.add(_createBoardList(listData[i]) as BoardList);
+        }
+
+        return BoardView(
+          lists: lists,
+          boardViewController: boardViewController,
+        );
+      },
     );
+  }
+
+  Future<List<CardModel>> getDataFromDatabase() async {
+    return await dbService.getDbData();
   }
 
   Widget buildBoardItem(CardModel currentCard) {
@@ -92,11 +96,39 @@ class ScrumboardPage extends StatelessWidget {
       items: items,
     );
   }
-}
 
-List<CardModel> getCards() { 
-  var data = db.getDbData();
+  List<Swimlane> splitTasks(List<CardModel> allCards) {
+    List<CardModel> todo = [];
+    List<CardModel> inProgress = [];
+    List<CardModel> testing = [];
+    List<CardModel> done = [];
 
-  List<CardModel> tempData = CardModel.fromJson(List data);
-  return tempData;
+    debugPrint(allCards.toString());
+    for (var card in allCards) {
+      switch (card.status) {
+        case "todo":
+          todo.add(card);
+          break;
+        case "inprogress":
+          inProgress.add(card);
+          break;
+        case "testing":
+          testing.add(card);
+          break;
+        case "done":
+          done.add(card);
+          break;
+        default:
+      }
+    }
+
+    var _listData = [
+      Swimlane(title: "TO DO", items: todo),
+      Swimlane(title: "IN PROGRESS", items: inProgress),
+      Swimlane(title: "TESTING", items: testing),
+      Swimlane(title: "DONE", items: done),
+    ];
+
+    return _listData;
+  }
 }
