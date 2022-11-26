@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/main.dart';
-import 'package:scrumboard/pages/scrumboard.dart';
 import 'package:scrumboard/pages/login.dart';
 import 'package:scrumboard/pages/user.dart';
 

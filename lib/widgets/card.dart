@@ -44,7 +44,6 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                   children: <Widget>[
                     Text(
                       widget.card.user,
-                      style: TextStyle(),
                     ),
                     const SizedBox(width: 8),
                     Text(widget.card.priority),

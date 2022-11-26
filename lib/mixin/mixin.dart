@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:scrumboard/models/card_model.dart';
 
 import '../widgets/task_dialog.dart';

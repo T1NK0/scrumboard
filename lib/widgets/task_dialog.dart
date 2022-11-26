@@ -43,7 +43,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: Text(
+        title: const Text(
           'Edet Task',
           style: TextStyle(
             fontSize: 24,
@@ -64,15 +64,15 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                     hintText: 'Title Of task',
                     labelText: 'Title',
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       onPressed: () => titleController.clear(),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 TextField(
                   controller: descriptionController,
                   maxLines: 5,
@@ -83,22 +83,22 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                       icon: const Icon(Icons.close),
                       onPressed: () => descriptionController.clear(),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 TextField(
                   controller: userController,
                   decoration: InputDecoration(
                     hintText: 'User ontask',
                     labelText: 'User',
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       onPressed: () => userController.clear(),
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
@@ -111,11 +111,11 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                     });
                   },
                   items: priorities.map((TaskPriority taskPriority) {
-                    return new DropdownMenuItem<TaskPriority>(
+                    return DropdownMenuItem<TaskPriority>(
                       value: taskPriority,
-                      child: new Text(
+                      child: Text(
                         taskPriority.name,
-                        style: new TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                     );
                   }).toList(),

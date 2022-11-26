@@ -1,7 +1,7 @@
 import 'package:boardview/board_item.dart';
 import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview_controller.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
 import 'package:scrumboard/global/global.dart';
@@ -16,6 +16,8 @@ class ScrumboardPage extends StatelessWidget {
   late List<Swimlane> _listData;
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
+
+  ScrumboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +87,10 @@ class ScrumboardPage extends StatelessWidget {
       header: [
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: Text(
               list.title!,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
         ),
@@ -122,7 +124,7 @@ class ScrumboardPage extends StatelessWidget {
       }
     }
 
-    var _listData = [
+    _listData = [
       Swimlane(title: "TO DO", items: todo),
       Swimlane(title: "IN PROGRESS", items: inProgress),
       Swimlane(title: "TESTING", items: testing),
