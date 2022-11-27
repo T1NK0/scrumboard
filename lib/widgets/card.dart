@@ -37,7 +37,7 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                     // size: 50,dialogBuilder(context);
                   ),
                   title: Text(widget.card.title),
-                  subtitle: Text(widget.card.title),
+                  subtitle: Text(widget.card.description),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

@@ -153,18 +153,16 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             onPressed: () {
               if (!isExistingCard) {
                 final title = titleController.text;
-                final description = titleController.text;
+                final description = descriptionController.text;
                 final user = userController.text;
                 final priority = selectedPriority;
                 const type = "todo";
                 cards.add(CardModel(
                     title: title,
                     description: description,
-                    priority: priority.toString(),
+                    priority: priority.name,
                     status: type,
                     user: user));
-
-                // Navigator.of(context).pop();
 
                 dbSet.saveTasksToDb(cards);
 
