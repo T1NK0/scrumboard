@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/card_model.dart';
 import 'package:scrumboard/models/task_priority_model.dart';
+import 'package:scrumboard/pages/scrumboard.dart';
+import '../main.dart';
 import '../services/firebase_db_service.dart';
 
 class TaskDialogWidget extends StatefulWidget {
@@ -19,12 +22,15 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   late TextEditingController userController;
   FirebaseDbService dbSet = FirebaseDbService();
 
-  late final TaskPriority selectedPriority;
+  late TaskPriority selectedPriority;
   List<TaskPriority> priorities = <TaskPriority>[
     const TaskPriority(1, 'Low'),
     const TaskPriority(2, 'Medium'),
     const TaskPriority(3, 'High')
   ];
+
+  late bool isExistingCard = false;
+  late var dialogTitle;
 
   @override
   void initState() {
@@ -35,16 +41,21 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
     userController = TextEditingController();
 
     if (widget.card != null) {
+      isExistingCard = true;
       titleController.text = widget.card!.title;
       descriptionController.text = widget.card!.description;
       userController.text = widget.card!.user;
+      dialogTitle = 'Edit';
+    } else {
+      isExistingCard = false;
+      dialogTitle = 'Create';
     }
   }
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: const Text(
-          'Edet Task',
+        title: Text(
+          dialogTitle,
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -138,15 +149,30 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
-            child: const Text('Create'),
+            child: const Text('Confirm'),
             onPressed: () {
-              final title = titleController.text;
-              final description = titleController.text;
-              final user = titleController.text;
-              final priority = selectedPriority;
-              final type = "todo";
+              if (!isExistingCard) {
+                final title = titleController.text;
+                final description = titleController.text;
+                final user = userController.text;
+                final priority = selectedPriority;
+                const type = "todo";
+                cards.add(CardModel(
+                    title: title,
+                    description: description,
+                    priority: priority.toString(),
+                    status: type,
+                    user: user));
 
-              Navigator.of(context).pop();
+                // Navigator.of(context).pop();
+
+                dbSet.saveTasksToDb(cards);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Scrumboard(),
+                ));
+              } else {}
+
               // dbSet.Set(widget.card!);
             },
           ),

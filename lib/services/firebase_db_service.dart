@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:scrumboard/models/card_model.dart';
 
 class FirebaseDbService {
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref();
+  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref('tasks');
 
   List<CardModel> tasks = [];
 
@@ -12,10 +12,17 @@ class FirebaseDbService {
     getDbData();
   }
 
-  Future<void> saveTaskToDb(List<CardModel> tasks) async {
-    var result = jsonEncode(tasks);
-    await _dbRef.set(result);
-    debugPrint('data');
+  Future<void> saveTasksToDb(List<CardModel> tasks) async {
+    var tasksMap = tasks.map((e) {
+      return {
+        'title': e.title,
+        'description': e.description,
+        'priority': e.priority,
+        'status': e.status,
+        'user': e.user,
+      };
+    }).toList();
+    await _dbRef.set(tasksMap);
   }
 
   Future<List<CardModel>> getDbData() async {
