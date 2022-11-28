@@ -20,7 +20,7 @@ class ScrumboardApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.teal),
+        theme: ThemeData(primarySwatch: Colors.red),
         home: Scrumboard(),
       );
 }
@@ -44,8 +44,6 @@ class _ScrumboardState extends State<Scrumboard> with NewCardDialog {
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   dialogBuilder(context, null);
-                  // db.Set();
-                  // dbSet.getDbData();
                 }),
           ],
         ),

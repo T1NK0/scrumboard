@@ -15,6 +15,7 @@ class FirebaseDbService {
   Future<void> saveTasksToDb(List<CardModel> tasks) async {
     var tasksMap = tasks.map((e) {
       return {
+        'ident': e.ident,
         'title': e.title,
         'description': e.description,
         'priority': e.priority,
@@ -28,10 +29,14 @@ class FirebaseDbService {
   Future<List<CardModel>> getDbData() async {
     var event = await _dbRef.once();
 
-    var convertedToJson = jsonEncode(event.snapshot.value);
+    if (event.snapshot.value != null) {
+      var convertedToJson = jsonEncode(event.snapshot.value);
 
-    List decodedJson = jsonDecode(convertedToJson);
-    return _parseTasks(decodedJson);
+      List decodedJson = jsonDecode(convertedToJson);
+      return _parseTasks(decodedJson);
+    } else {
+      return [];
+    }
   }
 
   List<CardModel> _parseTasks(List response) {

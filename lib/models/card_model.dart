@@ -1,4 +1,5 @@
 class CardModel {
+  late String ident;
   late String title;
   late String description;
   late String priority;
@@ -6,6 +7,7 @@ class CardModel {
   late String user;
 
   CardModel({
+    required this.ident,
     required this.title,
     required this.description,
     required this.priority,
@@ -14,6 +16,7 @@ class CardModel {
   });
 
   CardModel.fromJson(Map<String, dynamic> json) {
+    ident = json['ident'];
     title = json['title'];
     description = json['description'];
     priority = json['priority'];
@@ -22,6 +25,7 @@ class CardModel {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        "ident": ident,
         "title": title,
         "description": description,
         "priority": priority,

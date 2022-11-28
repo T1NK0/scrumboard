@@ -108,10 +108,10 @@ class ScrumboardPage extends StatelessWidget {
     debugPrint(allCards.toString());
     for (var card in allCards) {
       switch (card.status) {
-        case "todo":
+        case "to do":
           todo.add(card);
           break;
-        case "inprogress":
+        case "in progress":
           inProgress.add(card);
           break;
         case "testing":

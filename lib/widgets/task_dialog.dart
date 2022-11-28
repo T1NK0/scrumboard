@@ -5,6 +5,7 @@ import 'package:scrumboard/models/task_priority_model.dart';
 import 'package:scrumboard/pages/scrumboard.dart';
 import '../main.dart';
 import '../services/firebase_db_service.dart';
+import 'package:uuid/uuid.dart';
 
 class TaskDialogWidget extends StatefulWidget {
   final CardModel? card;
@@ -151,13 +152,16 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             ),
             child: const Text('Confirm'),
             onPressed: () {
+              var guidGenerator = const Uuid();
+              final title = titleController.text;
+              final description = descriptionController.text;
+              final user = userController.text;
+              final priority = selectedPriority;
               if (!isExistingCard) {
-                final title = titleController.text;
-                final description = descriptionController.text;
-                final user = userController.text;
-                final priority = selectedPriority;
-                const type = "todo";
+                final ident = guidGenerator.v1();
+                const type = "to do";
                 cards.add(CardModel(
+                    ident: ident,
                     title: title,
                     description: description,
                     priority: priority.name,
@@ -169,7 +173,13 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Scrumboard(),
                 ));
-              } else {}
+              } else {
+                cards.indexWhere((element) => false);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Scrumboard(),
+                ));
+              }
 
               // dbSet.Set(widget.card!);
             },
