@@ -62,7 +62,7 @@ class NavigationDrawer extends StatelessWidget {
               leading: const Icon(Icons.home),
               title: const Text('Hjem'),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Scrumboard(),
+                    builder: (context) => const ScrumboardMainScreen(),
                   ))),
           ListTile(
               leading: const Icon(Icons.login),

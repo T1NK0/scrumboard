@@ -57,7 +57,7 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                 db.removeTasksFromDb();
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Scrumboard(),
+                  builder: (context) => ScrumboardMainScreen(),
                 ));
             },
           ),

@@ -172,7 +172,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                 cards.add(newCard);
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Scrumboard(),
+                  builder: (context) => ScrumboardMainScreen(),
                 ));
               } else {
                 var cardIndex = cards.indexWhere((element) => element.ident == widget.card!.ident);
@@ -187,7 +187,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                 );
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Scrumboard(),
+                  builder: (context) => ScrumboardMainScreen(),
                 ));
               }
               dbSet.saveTasksToDb(cards);

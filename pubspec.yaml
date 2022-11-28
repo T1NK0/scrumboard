@@ -41,6 +41,9 @@ dependencies:
   firebase_core: ^2.3.0
   firebase_database: ^10.0.6
   uuid: ^3.0.7
+  flutter_local_notifications: ^12.0.4 #9.2.0
+  firebase_messaging: ^14.1.2 #warning requires android 33! flutter pub upgrade --major-versions
+  device_info_plus: ^8.0.0
 
 
 dev_dependencies:
