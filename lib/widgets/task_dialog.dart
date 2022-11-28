@@ -158,7 +158,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
               final user = userController.text;
               final priority = selectedPriority;
               final ident = guidGenerator.v1();
-              const type = "to do";
+              const type = "TO DO";
 
               var newCard = CardModel(
                   ident: ident,

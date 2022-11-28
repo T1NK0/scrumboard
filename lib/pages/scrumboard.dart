@@ -12,7 +12,7 @@ import 'package:scrumboard/widgets/widgets.dart';
 import '../services/firebase_db_service.dart';
 
 class ScrumboardPage extends StatelessWidget {
-  FirebaseDbService dbService = FirebaseDbService();
+  FirebaseDbService db = FirebaseDbService();
   late List<Swimlane> _listData;
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
@@ -45,7 +45,7 @@ class ScrumboardPage extends StatelessWidget {
   }
 
   Future<List<CardModel>> getDataFromDatabase() async {
-    return await dbService.getDbData();
+    return await db.getDbData();
   }
 
   Widget buildBoardItem(CardModel currentCard) {
@@ -58,6 +58,11 @@ class ScrumboardPage extends StatelessWidget {
         var item = _listData[oldListIndex!].items![oldItemIndex!];
         _listData[oldListIndex].items!.removeAt(oldItemIndex!);
         _listData[listIndex!].items!.insert(itemIndex!, item);
+
+        currentCard.status = _listData[listIndex].title;
+        var cardIndex = cards.indexWhere((element) => element.ident == currentCard.ident);
+        cards[cardIndex] = currentCard;
+        db.saveTasksToDb(cards);
       },
       onTapItem:
           (int? listIndex, int? itemIndex, BoardItemState? state) async {},
@@ -108,16 +113,16 @@ class ScrumboardPage extends StatelessWidget {
     debugPrint(allCards.toString());
     for (var card in allCards) {
       switch (card.status) {
-        case "to do":
+        case "TO DO":
           todo.add(card);
           break;
-        case "in progress":
+        case "IN PROGRESS":
           inProgress.add(card);
           break;
-        case "testing":
+        case "TESTING":
           testing.add(card);
           break;
-        case "done":
+        case "DONE":
           done.add(card);
           break;
         default:

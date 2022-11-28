@@ -32,9 +32,7 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                 ListTile(
                   // ignore: prefer_const_constructors
                   leading: Icon(
-                    Icons.task,
-                    color: Colors.teal,
-                    // size: 50,dialogBuilder(context);
+                    Icons.priority_high,
                   ),
                   title: Text(widget.card.title),
                   subtitle: Text(widget.card.description),
@@ -42,9 +40,7 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text(
-                      widget.card.user,
-                    ),
+                    Text(widget.card.user),
                     const SizedBox(width: 8),
                     Text(widget.card.priority),
                     const SizedBox(width: 8),
