@@ -39,6 +39,10 @@ class FirebaseDbService {
     }
   }
 
+  Future<void> removeTasksFromDb() async {
+    await _dbRef.remove();
+  }
+
   List<CardModel> _parseTasks(List response) {
     return response.map<CardModel>((json) => CardModel.fromJson(json)).toList();
   }

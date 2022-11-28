@@ -157,31 +157,40 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
               final description = descriptionController.text;
               final user = userController.text;
               final priority = selectedPriority;
-              if (!isExistingCard) {
-                final ident = guidGenerator.v1();
-                const type = "to do";
-                cards.add(CardModel(
-                    ident: ident,
-                    title: title,
-                    description: description,
-                    priority: priority.name,
-                    status: type,
-                    user: user));
+              final ident = guidGenerator.v1();
+              const type = "to do";
 
-                dbSet.saveTasksToDb(cards);
+              var newCard = CardModel(
+                  ident: ident,
+                  title: title,
+                  description: description,
+                  priority: priority.name,
+                  status: type,
+                  user: user,);
+
+              if (!isExistingCard) {
+                cards.add(newCard);
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Scrumboard(),
                 ));
               } else {
-                cards.indexWhere((element) => false);
+                var cardIndex = cards.indexWhere((element) => element.ident == widget.card!.ident);
+
+                cards[cardIndex] = CardModel(
+                    ident: widget.card!.ident,
+                    title: title,
+                    description: description,
+                    priority: priority.name,
+                    status: widget.card!.status,
+                    user: user,
+                );
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Scrumboard(),
                 ));
               }
-
-              // dbSet.Set(widget.card!);
+              dbSet.saveTasksToDb(cards);
             },
           ),
         ],

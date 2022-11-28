@@ -48,8 +48,6 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                     const SizedBox(width: 8),
                     Text(widget.card.priority),
                     const SizedBox(width: 8),
-                    Text(widget.card.status),
-                    const SizedBox(width: 8),
                   ],
                 ),
               ],
