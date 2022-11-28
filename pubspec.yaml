@@ -44,6 +44,7 @@ dependencies:
   flutter_local_notifications: ^12.0.4 #9.2.0
   firebase_messaging: ^14.1.2 #warning requires android 33! flutter pub upgrade --major-versions
   device_info_plus: ^8.0.0
+  path_provider: ^2.0.11
 
 
 dev_dependencies:

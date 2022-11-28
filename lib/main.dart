@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
 import 'services/firebase_db_service.dart';
 import 'widgets/widgets.dart';
 import 'package:scrumboard/pages/scrumboard.dart';
@@ -13,8 +12,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   //ignore: avoid_print
@@ -25,8 +23,7 @@ void initInfo() {
   var androidInitialize =
   const AndroidInitializationSettings('@mipmap/ic_launcher');
   var iosInitialize = const DarwinInitializationSettings(); //IOS
-  var initializationsSettings =
-  InitializationSettings(android: androidInitialize, iOS: iosInitialize);
+  var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iosInitialize);
   flutterLocalNotificationsPlugin.initialize(
     initializationsSettings,
     onDidReceiveNotificationResponse: ((NotificationResponse details) async {
@@ -87,11 +84,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initInfo();
   await Firebase.initializeApp();
-  /*
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  */
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   runApp(const ScrumboardApp());
@@ -103,7 +95,7 @@ class ScrumboardApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(scaffoldBackgroundColor: Colors.black12 , primarySwatch: Colors.amber),
+        theme: ThemeData(scaffoldBackgroundColor: Colors.grey[900] , primarySwatch: Colors.amber),
         home: ScrumboardMainScreen(),
       );
 }

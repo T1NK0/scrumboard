@@ -15,7 +15,7 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
   @override
   Widget build(BuildContext context) => Card(
         child: InkWell(
-          splashColor: Colors.teal,
+          splashColor: Colors.amber,
           onTap: () {
             dialogBuilder(context, widget.card);
             // Navigator.pop(context);
