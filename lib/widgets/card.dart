@@ -18,12 +18,6 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
           splashColor: Colors.amber,
           onTap: () {
             dialogBuilder(context, widget.card);
-            // Navigator.pop(context);
-
-            // Navigator.of(context).push(MaterialPageRoute(
-            //   builder: (context) => const TaskPage(),
-            // ));
-            debugPrint('Card tapped.');
           },
           child: SizedBox(
             child: Column(
@@ -32,7 +26,7 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                 ListTile(
                   // ignore: prefer_const_constructors
                   leading: Icon(
-                    Icons.priority_high,
+                    Icons.code,
                   ),
                   title: Text(widget.card.title),
                   subtitle: Text(widget.card.description),
@@ -42,8 +36,15 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                   children: <Widget>[
                     Text(widget.card.user),
                     const SizedBox(width: 8),
-                    Text(widget.card.priority),
-                    const SizedBox(width: 8),
+                    // Text(widget.card.priority),
+                    if(widget.card.priority == 'Low')
+                      Icon(Icons.priority_high, color: Colors.green),
+                    if(widget.card.priority == 'Medium')
+                      Icon(Icons.priority_high, color: Colors.amber),
+                    if(widget.card.priority == 'High')
+                      Icon(Icons.priority_high, color: Colors.red),
+                    // const SizedBox(width: 8),
+
                   ],
                 ),
               ],
