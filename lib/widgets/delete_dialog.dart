@@ -3,6 +3,7 @@ import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/card_model.dart';
 import 'package:scrumboard/models/task_priority_model.dart';
 import 'package:scrumboard/pages/scrumboard.dart';
+import 'package:scrumboard/services/local_storage_service.dart';
 import '../main.dart';
 import '../services/firebase_db_service.dart';
 import 'package:uuid/uuid.dart';
@@ -19,6 +20,7 @@ final _formKey = GlobalKey<FormState>();
 
 class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
   FirebaseDbService db = FirebaseDbService();
+  LocalStorageService localStorage = LocalStorageService();
 
   @override
   void initState() {
@@ -55,6 +57,7 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
             child: const Text('Confirm'),
             onPressed: () {
                 db.removeTasksFromDb();
+                localStorage.deleteFile();
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ScrumboardMainScreen(),

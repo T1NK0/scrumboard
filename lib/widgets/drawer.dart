@@ -30,6 +30,7 @@ class NavigationDrawer extends StatelessWidget {
             ));
           },
           child: Container(
+            color: Colors.amber,
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top + 20,
               bottom: MediaQuery.of(context).padding.bottom + 20,
@@ -43,13 +44,9 @@ class NavigationDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 12),
                 Text(
-                  'Mads Tinko',
-                  style: TextStyle(fontSize: 30, color: Colors.white),
-                ),
-                Text(
-                  'mads8340@zbc.dk',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                ),
+                  'Username',
+                  style: TextStyle(fontSize: 30, color: Colors.black),
+                )
               ],
             ),
           ),

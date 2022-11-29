@@ -3,6 +3,7 @@ import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/card_model.dart';
 import 'package:scrumboard/models/task_priority_model.dart';
 import 'package:scrumboard/pages/scrumboard.dart';
+import 'package:scrumboard/services/local_storage_service.dart';
 import '../main.dart';
 import '../services/firebase_db_service.dart';
 import 'package:uuid/uuid.dart';
@@ -21,7 +22,8 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
   late TextEditingController userController;
-  FirebaseDbService dbSet = FirebaseDbService();
+  FirebaseDbService db = FirebaseDbService();
+  LocalStorageService localStorage = LocalStorageService();
 
   late TaskPriority selectedPriority;
   List<TaskPriority> priorities = <TaskPriority>[
@@ -185,12 +187,13 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                     status: widget.card!.status,
                     user: user,
                 );
-
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScrumboardMainScreen(),
-                ));
               }
-              dbSet.saveTasksToDb(cards);
+              db.saveTasksToDb(cards);
+              localStorage.saveTasksToLocalStorage(cards);
+
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ScrumboardMainScreen(),
+              ));
             },
           ),
         ],

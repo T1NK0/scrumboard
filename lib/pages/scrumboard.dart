@@ -7,12 +7,15 @@ import 'package:boardview/boardview.dart';
 import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/swimlane_model.dart';
 import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/services/local_storage_service.dart';
 import 'package:scrumboard/widgets/widgets.dart';
 
 import '../services/firebase_db_service.dart';
 
 class ScrumboardPage extends StatelessWidget {
   FirebaseDbService db = FirebaseDbService();
+  LocalStorageService localStorage = LocalStorageService();
+
   late List<Swimlane> _listData;
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
@@ -25,7 +28,7 @@ class ScrumboardPage extends StatelessWidget {
       future: getDataFromDatabase(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
 
         cards = snapshot.data!;
@@ -46,6 +49,8 @@ class ScrumboardPage extends StatelessWidget {
 
   Future<List<CardModel>> getDataFromDatabase() async {
     return await db.getDbData();
+
+    // return await localStorage.readFile();
   }
 
   Widget buildBoardItem(CardModel currentCard) {
@@ -62,6 +67,7 @@ class ScrumboardPage extends StatelessWidget {
         currentCard.status = _listData[listIndex].title;
         var cardIndex = cards.indexWhere((element) => element.ident == currentCard.ident);
         cards[cardIndex] = currentCard;
+        localStorage.saveTasksToLocalStorage(cards);
         db.saveTasksToDb(cards);
       },
       onTapItem:
@@ -110,7 +116,6 @@ class ScrumboardPage extends StatelessWidget {
     List<CardModel> testing = [];
     List<CardModel> done = [];
 
-    debugPrint(allCards.toString());
     for (var card in allCards) {
       switch (card.status) {
         case "TO DO":
