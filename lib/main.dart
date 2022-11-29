@@ -95,7 +95,10 @@ class ScrumboardApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(scaffoldBackgroundColor: Colors.grey[900] , primarySwatch: Colors.amber),
+        theme: ThemeData(
+            scaffoldBackgroundColor: Colors.grey[900],
+            primarySwatch: Colors.amber
+        ),
         home: ScrumboardMainScreen(),
       );
 }
