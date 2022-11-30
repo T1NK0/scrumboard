@@ -3,7 +3,6 @@ import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/models/task_priority_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
-import '../main.dart';
 import '../services/firebase_db_service.dart';
 import 'package:uuid/uuid.dart';
 
@@ -31,20 +30,19 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
     const TaskPriority(3, 'High')
   ];
 
+  //Checks if the task already exists
   late bool isExistingCard = false;
+
+  //Creates the title of the dialog.
   late var dialogTitle;
 
-  /**
-   * Set the controllers of our form fields.
-   * Get's the data from the task selected if pressed through card, else give us a clean form.
-   */
+  /// Set the controllers of our form fields.
+  /// Get's the data from the task selected if pressed through card, else give us a clean form.
   @override
   void initState() {
     super.initState();
 
-    /**
-     * Logic to keep selected value on edit of task.
-     */
+    /// Logic to keep selected value on edit of task.
     if(widget.task == null) {
       selectedPriority = priorities[0];
     } else {
@@ -69,9 +67,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   }
 
 
-  /**
-   * Alertdialog with form to show, and logic on confirm wether to update the task, or create a new task.
-   */
+  /// Alertdialog with form to show, and logic on confirm wether to update the task, or create a new task.
   @override
   Widget build(BuildContext context) => AlertDialog(
         title: Text(
@@ -161,7 +157,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             ),
             child: const Text('Cancel'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
           ),
           TextButton(
@@ -172,12 +168,14 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             onPressed: () {
               db.DeleteTaskFromDb(tasks, widget.task!);
 
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ScrumboardMainScreen(),
-              ));
+              Navigator.pop(context);
+              setState(() {
+
+              });
+
+              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScrumboardMainScreen()));
             },
           ),
-          // IconButton(onPressed: db.DeleteTaskFromDb(cards, widget.task), icon: Icon(Icons.delete)),
           TextButton(
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
@@ -185,42 +183,30 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             child: const Text('Confirm'),
             onPressed: () {
               var guidGenerator = const Uuid();
-              final title = titleController.text;
-              final description = descriptionController.text;
-              final user = userController.text;
-              final priority = selectedPriority;
-              final ident = guidGenerator.v1();
-              const type = "TO DO";
-
               var newCard = TaskModel(
-                  ident: ident,
-                  title: title,
-                  description: description,
-                  priority: priority.name,
-                  status: type,
-                  user: user,);
+                  ident: guidGenerator.v1(),
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  priority: selectedPriority.name,
+                  status: 'TO DO',
+                  user: userController.text,);
 
               if (isExistingCard) {
-                var cardIndex = tasks.indexWhere((element) => element.ident == widget.task!.ident);
-
-                tasks[cardIndex] = TaskModel(
-                  ident: widget.task!.ident,
-                  title: title,
-                  description: description,
-                  priority: priority.name,
-                  status: widget.task!.status,
-                  user: user,
-                );
+                newCard.status = widget.task!.status;
+                newCard.ident = widget.task!.ident;
+                tasks[tasks.indexWhere((element) => element.ident == widget.task!.ident)] = newCard;
               } else {
                 tasks.add(newCard);
               }
+
               db.saveTasksToDb(tasks);
-              // localStorage.saveTasksToLocalStorage(tasks);
 
               Navigator.pop(context);
               setState(() {
-                // works like an observable, updates the context widget!
+
               });
+              // localStorage.saveTasksToLocalStorage(tasks);
+              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScrumboardMainScreen()));
             },
           ),
         ],
