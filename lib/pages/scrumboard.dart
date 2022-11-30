@@ -17,6 +17,7 @@ class ScrumboardPage extends StatelessWidget {
   LocalStorageService localStorage = LocalStorageService();
 
   late List<Swimlane> _listData;
+
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
 
@@ -97,10 +98,10 @@ class ScrumboardPage extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(5),
-            child: Text(
+            child: Center(child: Text(
               list.title!,
               style: const TextStyle(fontSize: 20),
-            ),
+            ),)
           ),
         ),
       ],

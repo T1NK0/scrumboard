@@ -9,9 +9,7 @@ class FirebaseDbService {
     getDbData();
   }
 
-  /**
-   * Saves the tasks to the database
-   */
+  /// Saves the tasks to the database
   Future<void> saveTasksToDb(List<TaskModel> tasks) async {
     var tasksMap = tasks.map((e) {
       return {
@@ -26,18 +24,14 @@ class FirebaseDbService {
     await _dbRefTasks.set(tasksMap);
   }
 
-  /**
-   * Delete specified task from db.
-   */
+  /// Delete specified task from db.
   Future<void> DeleteTaskFromDb(List<TaskModel> tasks, TaskModel selectedTask) async {
     var taskIndex = tasks.indexWhere((element) => element.ident == selectedTask.ident);
     tasks.removeWhere((element) => element.ident == selectedTask.ident);
     saveTasksToDb(tasks);
   }
 
-  /**
-   * Get's all the data from the database.
-   */
+  /// Get's all the data from the database.
   Future<List<TaskModel>> getDbData() async {
     var event = await _dbRefTasks.once();
 
@@ -51,9 +45,7 @@ class FirebaseDbService {
     }
   }
 
-  /**
-   * removes the tasks from the db.
-   */
+  /// removes the tasks from the db.
   Future<void> removeTasksFromDb() async {
     await _dbRefTasks.remove();
   }
