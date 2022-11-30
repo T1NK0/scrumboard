@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
 import 'package:scrumboard/global/global.dart';
 import 'package:scrumboard/models/swimlane_model.dart';
-import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
 import 'package:scrumboard/widgets/widgets.dart';
 
@@ -31,8 +31,8 @@ class ScrumboardPage extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        cards = snapshot.data!;
-        var listData = splitTasks(cards);
+        tasks = snapshot.data!;
+        var listData = splitTasks(tasks);
 
         List<BoardList> lists = [];
         for (int i = 0; i < listData.length; i++) {
@@ -47,13 +47,13 @@ class ScrumboardPage extends StatelessWidget {
     );
   }
 
-  Future<List<CardModel>> getDataFromDatabase() async {
+  Future<List<TaskModel>> getDataFromDatabase() async {
     return await db.getDbData();
 
     // return await localStorage.readFile();
   }
 
-  Widget buildBoardItem(CardModel currentCard) {
+  Widget buildBoardItem(TaskModel currentCard) {
     return BoardItem(
       onStartDragItem:
           (int? listIndex, int? itemIndex, BoardItemState? state) {},
@@ -65,10 +65,10 @@ class ScrumboardPage extends StatelessWidget {
         _listData[listIndex!].items!.insert(itemIndex!, item);
 
         currentCard.status = _listData[listIndex].title;
-        var cardIndex = cards.indexWhere((element) => element.ident == currentCard.ident);
-        cards[cardIndex] = currentCard;
-        localStorage.saveTasksToLocalStorage(cards);
-        db.saveTasksToDb(cards);
+        var cardIndex = tasks.indexWhere((element) => element.ident == currentCard.ident);
+        tasks[cardIndex] = currentCard;
+        localStorage.saveTasksToLocalStorage(tasks);
+        db.saveTasksToDb(tasks);
       },
       onTapItem:
           (int? listIndex, int? itemIndex, BoardItemState? state) async {},
@@ -110,11 +110,11 @@ class ScrumboardPage extends StatelessWidget {
     );
   }
 
-  List<Swimlane> splitTasks(List<CardModel> allCards) {
-    List<CardModel> todo = [];
-    List<CardModel> inProgress = [];
-    List<CardModel> testing = [];
-    List<CardModel> done = [];
+  List<Swimlane> splitTasks(List<TaskModel> allCards) {
+    List<TaskModel> todo = [];
+    List<TaskModel> inProgress = [];
+    List<TaskModel> testing = [];
+    List<TaskModel> done = [];
 
     for (var card in allCards) {
       switch (card.status) {

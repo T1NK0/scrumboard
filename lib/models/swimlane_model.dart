@@ -1,8 +1,8 @@
-import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_model.dart';
 
 class Swimlane {
   String title;
-  List<CardModel> items;
+  List<TaskModel> items;
 
   Swimlane({
     required this.title,

@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'services/firebase_db_service.dart';
 import 'widgets/widgets.dart';
 import 'package:scrumboard/pages/scrumboard.dart';
 import 'package:scrumboard/mixin/mixin.dart';
@@ -19,6 +17,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("handling a background message ${message.messageId}");
 }
 
+/**
+ * Initialize get's run before main, so call out notifications here, and database connections etc.
+ */
 void initInfo() {
   var androidInitialize =
   const AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -33,6 +34,9 @@ void initInfo() {
     onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
   );
 
+  /**
+   * Controls the notification layout and data.
+   */
   FirebaseMessaging.onMessage.listen((message) async {
     // ignore: avoid_print
     print("............ onMessage.................");
@@ -89,6 +93,9 @@ Future<void> main() async {
   runApp(const ScrumboardApp());
 }
 
+/**
+ * The app main, containing the app bar, and what screen to show as the homescreen.
+ */
 class ScrumboardApp extends StatelessWidget {
   const ScrumboardApp({super.key});
 
@@ -103,16 +110,19 @@ class ScrumboardApp extends StatelessWidget {
       );
 }
 
-//The MainScreen!
+/**
+ * The main screen.
+ */
 class ScrumboardMainScreen extends StatefulWidget {
   const ScrumboardMainScreen({super.key});
 
   @override
   State<ScrumboardMainScreen> createState() => _ScrumboardMainScreenState();
 }
-
+/**
+ * What to show on the main screen.
+ */
 class _ScrumboardMainScreenState extends State<ScrumboardMainScreen> with NewCardDialog {
-  FirebaseDbService db = FirebaseDbService();
   String? _token;
   final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
@@ -142,7 +152,7 @@ class _ScrumboardMainScreenState extends State<ScrumboardMainScreen> with NewCar
                   showDialog<void>(
                       context: context,
                       builder: (BuildContext context) {
-                        return DeleteDialogWidget();
+                        return ClearScrumboardWidget();
                       },
                     );
                   }),

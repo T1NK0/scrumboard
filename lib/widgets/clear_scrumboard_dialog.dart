@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:scrumboard/global/global.dart';
-import 'package:scrumboard/models/card_model.dart';
-import 'package:scrumboard/models/task_priority_model.dart';
-import 'package:scrumboard/pages/scrumboard.dart';
+import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
 import '../main.dart';
 import '../services/firebase_db_service.dart';
-import 'package:uuid/uuid.dart';
 
-class DeleteDialogWidget extends StatefulWidget {
-  final CardModel? card;
-  const DeleteDialogWidget({super.key, this.card});
+class ClearScrumboardWidget extends StatefulWidget {
+  final TaskModel? task;
+  const ClearScrumboardWidget({super.key, this.task});
 
   @override
-  State<DeleteDialogWidget> createState() => _DeleteDialogWidgetState();
+  State<ClearScrumboardWidget> createState() => _ClearScrumboardWidgetState();
 }
 
 final _formKey = GlobalKey<FormState>();
 
-class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
+class _ClearScrumboardWidgetState extends State<ClearScrumboardWidget> {
   FirebaseDbService db = FirebaseDbService();
   LocalStorageService localStorage = LocalStorageService();
 

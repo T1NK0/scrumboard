@@ -1,18 +1,20 @@
 import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
-import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_model.dart';
 
 class FirebaseDbService {
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref('tasks');
+  final DatabaseReference _dbRefTasks = FirebaseDatabase.instance.ref('tasks');
 
-  List<CardModel> tasks = [];
+  // List<TaskModel> tasks = [];
 
   FirebaseDbService() {
     getDbData();
   }
 
-  Future<void> saveTasksToDb(List<CardModel> tasks) async {
+  /**
+   * Saves the tasks to the database
+   */
+  Future<void> saveTasksToDb(List<TaskModel> tasks) async {
     var tasksMap = tasks.map((e) {
       return {
         'ident': e.ident,
@@ -23,11 +25,23 @@ class FirebaseDbService {
         'user': e.user,
       };
     }).toList();
-    await _dbRef.set(tasksMap);
+    await _dbRefTasks.set(tasksMap);
   }
 
-  Future<List<CardModel>> getDbData() async {
-    var event = await _dbRef.once();
+  /**
+   * Delete specified task from db.
+   */
+  Future<void> DeleteTaskFromDb(List<TaskModel> tasks, TaskModel selectedTask) async {
+    var taskIndex = tasks.indexWhere((element) => element.ident == selectedTask.ident);
+    tasks.removeWhere((element) => element.ident == selectedTask.ident);
+    saveTasksToDb(tasks);
+  }
+
+  /**
+   * Get's all the data from the database.
+   */
+  Future<List<TaskModel>> getDbData() async {
+    var event = await _dbRefTasks.once();
 
     if (event.snapshot.value != null) {
       var convertedToJson = jsonEncode(event.snapshot.value);
@@ -39,11 +53,14 @@ class FirebaseDbService {
     }
   }
 
+  /**
+   * removes the tasks from the db.
+   */
   Future<void> removeTasksFromDb() async {
-    await _dbRef.remove();
+    await _dbRefTasks.remove();
   }
 
-  List<CardModel> _parseTasks(List response) {
-    return response.map<CardModel>((json) => CardModel.fromJson(json)).toList();
+  List<TaskModel> _parseTasks(List response) {
+    return response.map<TaskModel>((json) => TaskModel.fromJson(json)).toList();
   }
 }

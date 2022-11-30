@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/global/global.dart';
-import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/models/task_priority_model.dart';
-import 'package:scrumboard/pages/scrumboard.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
 import '../main.dart';
 import '../services/firebase_db_service.dart';
 import 'package:uuid/uuid.dart';
 
 class TaskDialogWidget extends StatefulWidget {
-  final CardModel? card;
-  const TaskDialogWidget({super.key, this.card});
+  final TaskModel? task;
+  const TaskDialogWidget({super.key, this.task});
 
   @override
   State<TaskDialogWidget> createState() => _TaskDialogWidgetState();
@@ -43,11 +42,11 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
     descriptionController = TextEditingController();
     userController = TextEditingController();
 
-    if (widget.card != null) {
+    if (widget.task != null) {
       isExistingCard = true;
-      titleController.text = widget.card!.title;
-      descriptionController.text = widget.card!.description;
-      userController.text = widget.card!.user;
+      titleController.text = widget.task!.title;
+      descriptionController.text = widget.task!.description;
+      userController.text = widget.task!.user;
       dialogTitle = 'Edit';
     } else {
       isExistingCard = false;
@@ -152,6 +151,20 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
+            child: const Text('Delete'),
+            onPressed: () {
+              db.DeleteTaskFromDb(tasks, widget.task!);
+
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ScrumboardMainScreen(),
+              ));
+            },
+          ),
+          // IconButton(onPressed: db.DeleteTaskFromDb(cards, widget.task), icon: Icon(Icons.delete)),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
             child: const Text('Confirm'),
             onPressed: () {
               var guidGenerator = const Uuid();
@@ -162,7 +175,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
               final ident = guidGenerator.v1();
               const type = "TO DO";
 
-              var newCard = CardModel(
+              var newCard = TaskModel(
                   ident: ident,
                   title: title,
                   description: description,
@@ -171,25 +184,25 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                   user: user,);
 
               if (!isExistingCard) {
-                cards.add(newCard);
+                tasks.add(newCard);
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ScrumboardMainScreen(),
                 ));
               } else {
-                var cardIndex = cards.indexWhere((element) => element.ident == widget.card!.ident);
+                var cardIndex = tasks.indexWhere((element) => element.ident == widget.task!.ident);
 
-                cards[cardIndex] = CardModel(
-                    ident: widget.card!.ident,
+                tasks[cardIndex] = TaskModel(
+                    ident: widget.task!.ident,
                     title: title,
                     description: description,
                     priority: priority.name,
-                    status: widget.card!.status,
+                    status: widget.task!.status,
                     user: user,
                 );
               }
-              db.saveTasksToDb(cards);
-              localStorage.saveTasksToLocalStorage(cards);
+              db.saveTasksToDb(tasks);
+              localStorage.saveTasksToLocalStorage(tasks);
 
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ScrumboardMainScreen(),

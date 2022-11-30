@@ -1,4 +1,4 @@
-class CardModel {
+class TaskModel {
   late String ident;
   late String title;
   late String description;
@@ -6,7 +6,7 @@ class CardModel {
   late String status;
   late String user;
 
-  CardModel({
+  TaskModel({
     required this.ident,
     required this.title,
     required this.description,
@@ -15,7 +15,7 @@ class CardModel {
     required this.user,
   });
 
-  CardModel.fromJson(Map<String, dynamic> json) {
+  TaskModel.fromJson(Map<String, dynamic> json) {
     ident = json['ident'];
     title = json['title'];
     description = json['description'];

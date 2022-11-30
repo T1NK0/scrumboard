@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_model.dart';
 
 import '../mixin/mixin.dart';
 
 class CardWidget extends StatefulWidget {
-  final CardModel card;
+  final TaskModel card;
   const CardWidget({super.key, required this.card});
 
   @override
@@ -12,6 +12,7 @@ class CardWidget extends StatefulWidget {
 }
 
 class _CardWidgetState extends State<CardWidget> with NewCardDialog {
+
   @override
   Widget build(BuildContext context) => Card(
         child: InkWell(
@@ -43,8 +44,6 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                       Icon(Icons.priority_high, color: Colors.amber),
                     if(widget.card.priority == 'High')
                       Icon(Icons.priority_high, color: Colors.red),
-                    // const SizedBox(width: 8),
-
                   ],
                 ),
               ],

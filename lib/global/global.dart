@@ -1,6 +1,6 @@
 //The global variables used throughout the
 library scrumboard.globals;
 
-import 'package:scrumboard/models/card_model.dart';
+import 'package:scrumboard/models/task_model.dart';
 
-List<CardModel> cards = [];
+List<TaskModel> tasks = [];
