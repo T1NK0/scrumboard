@@ -5,8 +5,6 @@ import 'package:scrumboard/models/task_model.dart';
 class FirebaseDbService {
   final DatabaseReference _dbRefTasks = FirebaseDatabase.instance.ref('tasks');
 
-  // List<TaskModel> tasks = [];
-
   FirebaseDbService() {
     getDbData();
   }

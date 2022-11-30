@@ -54,10 +54,13 @@ class _ClearScrumboardWidgetState extends State<ClearScrumboardWidget> {
             onPressed: () {
                 db.removeTasksFromDb();
                 localStorage.deleteFile();
+                db.getDbData();
 
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScrumboardMainScreen(),
-                ));
+                Navigator.of(context).pop();
+
+                setState(() {
+
+                });
             },
           ),
         ],

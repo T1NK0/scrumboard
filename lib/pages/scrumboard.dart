@@ -49,8 +49,6 @@ class ScrumboardPage extends StatelessWidget {
 
   Future<List<TaskModel>> getDataFromDatabase() async {
     return await db.getDbData();
-
-    // return await localStorage.readFile();
   }
 
   Widget buildBoardItem(TaskModel currentCard) {

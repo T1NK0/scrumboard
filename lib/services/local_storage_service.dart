@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
@@ -10,7 +9,6 @@ class LocalStorageService {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
-    debugPrint(directory.path);
   }
 
   Future<File> get _localFile async {

@@ -34,15 +34,24 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   late bool isExistingCard = false;
   late var dialogTitle;
 
+  /**
+   * Set the controllers of our form fields.
+   * Get's the data from the task selected if pressed through card, else give us a clean form.
+   */
   @override
   void initState() {
     super.initState();
+
+    /**
+     * Logic to keep selected value on edit of task.
+     */
     if(widget.task == null) {
       selectedPriority = priorities[0];
     } else {
       var alreadySelectedPriority = priorities.indexWhere((element) => element.name == widget.task!.priority);
       selectedPriority = priorities[alreadySelectedPriority];
     }
+
     titleController = TextEditingController();
     descriptionController = TextEditingController();
     userController = TextEditingController();
@@ -59,6 +68,10 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
     }
   }
 
+
+  /**
+   * Alertdialog with form to show, and logic on confirm wether to update the task, or create a new task.
+   */
   @override
   Widget build(BuildContext context) => AlertDialog(
         title: Text(
@@ -138,8 +151,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                     );
                   }).toList(),
                 ),
-              ],
-            ),
+              ]),
           ),
         ),
         actions: <Widget>[
@@ -188,30 +200,27 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                   status: type,
                   user: user,);
 
-              if (!isExistingCard) {
-                tasks.add(newCard);
-
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScrumboardMainScreen(),
-                ));
-              } else {
+              if (isExistingCard) {
                 var cardIndex = tasks.indexWhere((element) => element.ident == widget.task!.ident);
 
                 tasks[cardIndex] = TaskModel(
-                    ident: widget.task!.ident,
-                    title: title,
-                    description: description,
-                    priority: priority.name,
-                    status: widget.task!.status,
-                    user: user,
+                  ident: widget.task!.ident,
+                  title: title,
+                  description: description,
+                  priority: priority.name,
+                  status: widget.task!.status,
+                  user: user,
                 );
+              } else {
+                tasks.add(newCard);
               }
               db.saveTasksToDb(tasks);
-              localStorage.saveTasksToLocalStorage(tasks);
+              // localStorage.saveTasksToLocalStorage(tasks);
 
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ScrumboardMainScreen(),
-              ));
+              Navigator.pop(context);
+              setState(() {
+                // works like an observable, updates the context widget!
+              });
             },
           ),
         ],
