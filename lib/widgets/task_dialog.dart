@@ -37,7 +37,12 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
   @override
   void initState() {
     super.initState();
-    selectedPriority = priorities[0];
+    if(widget.task == null) {
+      selectedPriority = priorities[0];
+    } else {
+      var alreadySelectedPriority = priorities.indexWhere((element) => element.name == widget.task!.priority);
+      selectedPriority = priorities[alreadySelectedPriority];
+    }
     titleController = TextEditingController();
     descriptionController = TextEditingController();
     userController = TextEditingController();
