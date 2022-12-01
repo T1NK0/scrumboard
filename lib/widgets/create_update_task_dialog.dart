@@ -88,7 +88,7 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
                 TextField(
                   controller: titleController,
                   decoration: InputDecoration(
-                    hintText: 'Title Of task',
+                    hintText: 'Title of task',
                     labelText: 'Title',
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.close),
@@ -104,7 +104,7 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
                   controller: descriptionController,
                   maxLines: 5,
                   decoration: InputDecoration(
-                    hintText: 'description Of task',
+                    hintText: 'Description of task',
                     labelText: 'Description',
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.close),
@@ -119,7 +119,7 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
                 TextField(
                   controller: userController,
                   decoration: InputDecoration(
-                    hintText: 'User ontask',
+                    hintText: 'User',
                     labelText: 'User',
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.close),
@@ -153,42 +153,41 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
           ),
         ),
         actions: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Cancel'),
+          MaterialButton(
+            color: Colors.amber,
+            textColor: Colors.black,
             onPressed: () {
               Navigator.pop(context);
+              setState(() {
+
+              });
             },
+            child: const Text('Cancel'),
           ),
           if(isExistingCard)
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Delete'),
+            MaterialButton(
+              color: Colors.amber,
+              textColor: Colors.black,
               onPressed: () {
                 tasks.removeWhere((element) => element.ident == widget.task!.ident);
                 db.saveTasksToDb(tasks);
                 Navigator.pop(context);
                 setState(() {});
               },
+              child: const Text('Delete'),
             ),
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Confirm'),
+          MaterialButton(
+            color: Colors.amber,
+            textColor: Colors.black,
             onPressed: () {
               var guidGenerator = const Uuid();
               var newCard = TaskModel(
-                  ident: guidGenerator.v1(),
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  priority: selectedPriority.name,
-                  status: 'TO DO',
-                  user: userController.text,);
+                ident: guidGenerator.v1(),
+                title: titleController.text,
+                description: descriptionController.text,
+                priority: selectedPriority.name,
+                status: 'TO DO',
+                user: userController.text,);
 
               if (isExistingCard) {
                 newCard.status = widget.task!.status;
@@ -202,6 +201,7 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
               setState(() {});
               // localStorage.saveTasksToLocalStorage(tasks);
             },
+            child: const Text('Confirm'),
           ),
         ],
       );

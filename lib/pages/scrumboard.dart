@@ -11,6 +11,7 @@ import 'package:scrumboard/widgets/widgets.dart';
 import '../services/firebase_db_service.dart';
 
 class ScrumboardPage extends StatelessWidget {
+  ScrumboardPage({super.key});
   FirebaseDbService db = FirebaseDbService();
   LocalStorageService localStorage = LocalStorageService();
 
@@ -19,7 +20,6 @@ class ScrumboardPage extends StatelessWidget {
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
 
-  ScrumboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {

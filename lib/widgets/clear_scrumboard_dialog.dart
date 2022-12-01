@@ -32,37 +32,32 @@ class _ClearScrumboardWidgetState extends State<ClearScrumboardWidget> {
       ),
       textAlign: TextAlign.center,
     ),
-    content: SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Row( children: [
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Confirm'),
-            onPressed: () {
-                db.removeTasksFromDb();
-                localStorage.deleteFile();
+    actions: <Widget>[
+      MaterialButton(
+        color: Colors.amber,
+        textColor: Colors.black,
+        child: const Text('Cancel'),
+        onPressed: () {
+          Navigator.pop(context);
+          setState(() {
 
-                Navigator.pop(context);
-                setState(() {
-
-                });
-            },
-          ),
-        ],
-        ),
+          });
+        },
       ),
-    ),
+      MaterialButton(
+        color: Colors.amber,
+        textColor: Colors.black,
+        child: const Text('Confirm'),
+        onPressed: () {
+          db.removeTasksFromDb();
+          localStorage.deleteFile();
+
+          Navigator.pop(context);
+          setState(() {
+
+          });
+        },
+      ),
+    ],
   );
 }
