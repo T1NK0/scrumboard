@@ -25,8 +25,7 @@ class FirebaseDbService {
   }
 
   /// Delete specified task from db.
-  Future<void> DeleteTaskFromDb(List<TaskModel> tasks, TaskModel selectedTask) async {
-    var taskIndex = tasks.indexWhere((element) => element.ident == selectedTask.ident);
+  Future<void> deleteTaskFromDb(List<TaskModel> tasks, TaskModel selectedTask) async {
     tasks.removeWhere((element) => element.ident == selectedTask.ident);
     saveTasksToDb(tasks);
   }

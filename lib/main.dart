@@ -145,7 +145,8 @@ class _ScrumboardMainScreenState extends State<ScrumboardMainScreen> with NewCar
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   dialogBuilder(context, null);
-                }),
+                },
+            ),
             IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () {
@@ -155,11 +156,16 @@ class _ScrumboardMainScreenState extends State<ScrumboardMainScreen> with NewCar
                         return ClearScrumboardWidget();
                       },
                     );
-                  }),
+                  },
+            ),
           ],
         ),
         drawer: const NavigationDrawer(),
-        body: ScrumboardPage(),
+        body: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            return ScrumboardPage();
+          },
+        ),
       );
 
   Future<void> requestPermission() async {

@@ -147,7 +147,8 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                     );
                   }).toList(),
                 ),
-              ]),
+              ],
+            ),
           ),
         ),
         actions: <Widget>[
@@ -166,14 +167,12 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
             ),
             child: const Text('Delete'),
             onPressed: () {
-              db.DeleteTaskFromDb(tasks, widget.task!);
+              db.deleteTaskFromDb(tasks, widget.task!);
 
               Navigator.pop(context);
               setState(() {
 
               });
-
-              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScrumboardMainScreen()));
             },
           ),
           TextButton(
@@ -206,7 +205,6 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
 
               });
               // localStorage.saveTasksToLocalStorage(tasks);
-              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScrumboardMainScreen()));
             },
           ),
         ],

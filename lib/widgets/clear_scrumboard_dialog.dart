@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
-import '../main.dart';
 import '../services/firebase_db_service.dart';
 
 class ClearScrumboardWidget extends StatefulWidget {
@@ -43,7 +42,7 @@ class _ClearScrumboardWidgetState extends State<ClearScrumboardWidget> {
             ),
             child: const Text('Cancel'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
           ),
           TextButton(
@@ -54,10 +53,8 @@ class _ClearScrumboardWidgetState extends State<ClearScrumboardWidget> {
             onPressed: () {
                 db.removeTasksFromDb();
                 localStorage.deleteFile();
-                db.getDbData();
 
-                Navigator.of(context).pop();
-
+                Navigator.pop(context);
                 setState(() {
 
                 });
