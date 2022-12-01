@@ -1,7 +1,6 @@
 import 'package:boardview/board_item.dart';
 import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview_controller.dart';
-// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
 import 'package:scrumboard/global/global.dart';
@@ -9,7 +8,6 @@ import 'package:scrumboard/models/swimlane_model.dart';
 import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
 import 'package:scrumboard/widgets/widgets.dart';
-
 import '../services/firebase_db_service.dart';
 
 class ScrumboardPage extends StatelessWidget {
@@ -84,6 +82,7 @@ class ScrumboardPage extends StatelessWidget {
     }
 
     return BoardList(
+
       onStartDragList: (int? listIndex) {},
       onTapList: (int? listIndex) async {},
       onDropList: (int? listIndex, int? oldListIndex) {

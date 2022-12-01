@@ -35,13 +35,14 @@ class _CardWidgetState extends State<CardWidget> with NewCardDialog {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
+                    Icon(Icons.person),
                     Text(widget.card.user),
                     const SizedBox(width: 8),
-                    // Text(widget.card.priority),
+                    //Show the priority with different icons, and colors depending on urgency.
                     if(widget.card.priority == 'Low')
-                      Icon(Icons.priority_high, color: Colors.green),
+                      Icon(Icons.keyboard_arrow_up, color: Colors.green),
                     if(widget.card.priority == 'Medium')
-                      Icon(Icons.priority_high, color: Colors.amber),
+                      Icon(Icons.keyboard_double_arrow_up, color: Colors.amber),
                     if(widget.card.priority == 'High')
                       Icon(Icons.priority_high, color: Colors.red),
                   ],

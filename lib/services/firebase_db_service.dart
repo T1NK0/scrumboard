@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:scrumboard/models/task_model.dart';
 
+import '../global/global.dart';
+
 class FirebaseDbService {
   final DatabaseReference _dbRefTasks = FirebaseDatabase.instance.ref('tasks');
 
@@ -23,13 +25,6 @@ class FirebaseDbService {
     }).toList();
     await _dbRefTasks.set(tasksMap);
   }
-
-  /// Delete specified task from db.
-  Future<void> deleteTaskFromDb(List<TaskModel> tasks, TaskModel selectedTask) async {
-    tasks.removeWhere((element) => element.ident == selectedTask.ident);
-    saveTasksToDb(tasks);
-  }
-
   /// Get's all the data from the database.
   Future<List<TaskModel>> getDbData() async {
     var event = await _dbRefTasks.once();

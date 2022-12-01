@@ -6,17 +6,17 @@ import 'package:scrumboard/services/local_storage_service.dart';
 import '../services/firebase_db_service.dart';
 import 'package:uuid/uuid.dart';
 
-class TaskDialogWidget extends StatefulWidget {
+class CreateUpdateTaskDialogWidget extends StatefulWidget {
   final TaskModel? task;
-  const TaskDialogWidget({super.key, this.task});
+  const CreateUpdateTaskDialogWidget({super.key, this.task});
 
   @override
-  State<TaskDialogWidget> createState() => _TaskDialogWidgetState();
+  State<CreateUpdateTaskDialogWidget> createState() => _CreateUpdateTaskDialogWidgetState();
 }
 
 final _formKey = GlobalKey<FormState>();
 
-class _TaskDialogWidgetState extends State<TaskDialogWidget> {
+class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWidget> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
   late TextEditingController userController;
@@ -132,6 +132,7 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
                 ),
                 DropdownButton<TaskPriority>(
                   value: selectedPriority,
+                  isExpanded: true,
                   onChanged: (TaskPriority? newValue) {
                     setState(() {
                       selectedPriority = newValue!;
@@ -161,20 +162,19 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
               Navigator.pop(context);
             },
           ),
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
+          if(isExistingCard)
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Delete'),
+              onPressed: () {
+                tasks.removeWhere((element) => element.ident == widget.task!.ident);
+                db.saveTasksToDb(tasks);
+                Navigator.pop(context);
+                setState(() {});
+              },
             ),
-            child: const Text('Delete'),
-            onPressed: () {
-              db.deleteTaskFromDb(tasks, widget.task!);
-
-              Navigator.pop(context);
-              setState(() {
-
-              });
-            },
-          ),
           TextButton(
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
@@ -197,13 +197,9 @@ class _TaskDialogWidgetState extends State<TaskDialogWidget> {
               } else {
                 tasks.add(newCard);
               }
-
               db.saveTasksToDb(tasks);
-
               Navigator.pop(context);
-              setState(() {
-
-              });
+              setState(() {});
               // localStorage.saveTasksToLocalStorage(tasks);
             },
           ),
