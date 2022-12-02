@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scrumboard/global/global.dart';
+import 'package:scrumboard/main.dart';
 import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/models/task_priority_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
@@ -153,6 +154,7 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
           ),
         ),
         actions: <Widget>[
+          // Cancel button (just closes the widget)
           MaterialButton(
             color: Colors.amber,
             textColor: Colors.black,
@@ -164,6 +166,7 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
             },
             child: const Text('Cancel'),
           ),
+          // Delete the selected task (Only visible if a card is selected)
           if(isExistingCard)
             MaterialButton(
               color: Colors.amber,
@@ -173,9 +176,14 @@ class _CreateUpdateTaskDialogWidgetState extends State<CreateUpdateTaskDialogWid
                 db.saveTasksToDb(tasks);
                 Navigator.pop(context);
                 setState(() {});
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ScrumboardMainScreen(),
+                ));
               },
               child: const Text('Delete'),
             ),
+          // Button to create or edit card.
           MaterialButton(
             color: Colors.amber,
             textColor: Colors.black,

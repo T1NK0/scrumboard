@@ -12,4 +12,13 @@ mixin NewCardDialog {
       },
     );
   }
+
+  // Future<void> dialogBuilder(BuildContext context, TaskModel? task) {
+  //   return showDialog<void>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return CreateUpdateTaskDialogWidget(task: task);
+  //     },
+  //   );
+  // }
 }

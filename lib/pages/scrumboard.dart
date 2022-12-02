@@ -8,7 +8,7 @@ import 'package:scrumboard/models/swimlane_model.dart';
 import 'package:scrumboard/models/task_model.dart';
 import 'package:scrumboard/services/local_storage_service.dart';
 import 'package:scrumboard/widgets/widgets.dart';
-import '../services/firebase_db_service.dart';
+import 'package:scrumboard/services/firebase_db_service.dart';
 
 class ScrumboardPage extends StatelessWidget {
   ScrumboardPage({super.key});
@@ -20,7 +20,8 @@ class ScrumboardPage extends StatelessWidget {
   //Can be used to animate to different sections of the BoardView
   BoardViewController boardViewController = BoardViewController();
 
-
+  /// Builds our lists / our scrumboard,
+  /// and set's the future to get the data from and listen to for updates.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
